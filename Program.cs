@@ -1,33 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using System.IO;
-namespace delegate_sample
+using System.Windows.Forms;
+
+namespace vendingMachine
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        internal static Coins Coins
         {
-            //Filesearch0 x = new Filesearch0("*",@"C:\Users\thayalini\Desktop\Delegatetesting", true);
-           // Filesearch0 x = new Filesearch0("*",, true);
+            get => default(Coins);
+            set
+            {
+            }
+        }
 
+        public static Employee Employee
+        {
+            get => default(Employee);
+            set
+            {
+            }
+        }
 
-        string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Delegatetesting";
-        Filesearch0 x = new Filesearch0("*",path, true);
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            // following line handle unhandled exceptions
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(HandleErrors);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form());
+        }
 
+        
+        //method for unhandled exceptions
 
-            // Filesearch0 x = new Filesearch0("*",Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+ @"\Delegatetesting", true);
-            // Class1 yyy = new Class1();
-
-            // yyy.displayextension handler1 = new yyy.displayextension();
-
-            x.handler = new filehandling(Class1.displayextension);
-            x.Execute();
-            x.handler = Class1.displayfilename;
-            x.Execute();
-            Console.ReadKey();
+        private static void HandleErrors(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show("Error" + e.Exception.Message);
+            //throw new NotImplementedException();
         }
     }
+   
 }
